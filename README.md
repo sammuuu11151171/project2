@@ -1,5 +1,5 @@
 # Simple Projects
 
-These projects were created on my local system
+These simple projects were created on my local system
 
 Created by Samruddhi Tapkir.
