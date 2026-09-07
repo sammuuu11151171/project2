@@ -1,0 +1,895 @@
+/* =========================================================
+   LOTTERY GAME
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+.lotery-game {
+    position: relative;
+
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    font-family: "Poppins", sans-serif;
+
+    color: white;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 193, 7, 0.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 87, 34, 0.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #120018,
+            #24002f 45%,
+            #0b0010
+        );
+}
+
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+.lotery-game::before {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    top: -180px;
+    left: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 193, 7, 0.12);
+
+    filter: blur(100px);
+
+    pointer-events: none;
+}
+
+
+.lotery-game::after {
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    right: -150px;
+    bottom: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 64, 129, 0.12);
+
+    filter: blur(100px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.lottery-content {
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.lotery-game h1 {
+    position: relative;
+
+    z-index: 10;
+
+    margin: 0 0 12px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: clamp(2.8rem, 7vw, 5rem);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    letter-spacing: 2px;
+
+    text-align: center;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.8),
+        0 0 15px rgba(255, 193, 7, 0.8),
+        0 0 30px rgba(255, 152, 0, 0.6),
+        0 5px 15px rgba(0, 0, 0, 0.5);
+
+    animation:
+        titleGlow 2s ease-in-out infinite alternate;
+}
+
+
+@keyframes titleGlow {
+
+    from {
+        text-shadow:
+            0 0 5px rgba(255, 255, 255, 0.8),
+            0 0 15px rgba(255, 193, 7, 0.6),
+            0 0 30px rgba(255, 152, 0, 0.4),
+            0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    to {
+        text-shadow:
+            0 0 8px rgba(255, 255, 255, 1),
+            0 0 25px rgba(255, 193, 7, 0.9),
+            0 0 50px rgba(255, 152, 0, 0.7),
+            0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.lotery-game h2 {
+    position: relative;
+
+    z-index: 10;
+
+    margin: 0 0 35px;
+
+    font-size: 1.1rem;
+
+    font-weight: 500;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+
+
+/* =========================================================
+   TICKET
+========================================================= */
+
+.ticket {
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 25px 30px;
+
+    border-radius: 28px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+    animation:
+        ticketFloat 3s ease-in-out infinite;
+}
+
+
+@keyframes ticketFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* =========================================================
+   LOTTERY DIGITS
+========================================================= */
+
+.ticket span {
+    width: 90px;
+    height: 110px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    font-size: 4rem;
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffca28,
+            #ff9800 55%,
+            #f4511e
+        );
+
+    border: 3px solid rgba(255, 255, 255, 0.5);
+
+    box-shadow:
+        0 8px 0 #b83b00,
+        0 15px 30px rgba(255, 152, 0, 0.3),
+        inset 0 3px 8px rgba(255, 255, 255, 0.5);
+
+    text-shadow:
+        0 3px 5px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.ticket span:hover {
+    transform:
+        translateY(-8px)
+        rotate(-2deg);
+
+    box-shadow:
+        0 12px 0 #b83b00,
+        0 20px 40px rgba(255, 152, 0, 0.45),
+        inset 0 3px 8px rgba(255, 255, 255, 0.6);
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.lottery-btn {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: 35px;
+
+    padding: 17px 40px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 1.05rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4081,
+            #f50057,
+            #c51162
+        );
+
+    box-shadow:
+        0 6px 0 #880e4f,
+        0 12px 25px rgba(245, 0, 87, 0.35);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.lottery-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    transform: skewX(-20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.45),
+            transparent
+        );
+
+    transition: left 0.6s ease;
+}
+
+
+.lottery-btn:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 9px 0 #880e4f,
+        0 18px 35px rgba(245, 0, 87, 0.5);
+}
+
+
+.lottery-btn:hover::before {
+    left: 140%;
+}
+
+
+.lottery-btn:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 2px 0 #880e4f,
+        0 5px 12px rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================================
+   WINNER MODE
+========================================================= */
+
+.lotery-game.winner {
+    animation:
+        winnerBackground 1.5s ease-in-out infinite alternate;
+}
+
+
+.lotery-game.winner::before {
+    width: 700px;
+    height: 700px;
+
+    background: rgba(255, 193, 7, 0.3);
+
+    filter: blur(120px);
+
+    animation:
+        jackpotGlow 1.5s ease-in-out infinite alternate;
+}
+
+
+@keyframes winnerBackground {
+
+    from {
+        box-shadow:
+            inset 0 0 80px rgba(255, 193, 7, 0.05);
+    }
+
+    to {
+        box-shadow:
+            inset 0 0 180px rgba(255, 193, 7, 0.18);
+    }
+}
+
+
+@keyframes jackpotGlow {
+
+    from {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+
+/* =========================================================
+   WINNING TICKET
+========================================================= */
+
+.winning-ticket {
+    border: 2px solid #ffd54f;
+
+    animation:
+        jackpotTicket 1s ease-in-out infinite alternate,
+        ticketFloat 3s ease-in-out infinite;
+
+    box-shadow:
+        0 0 20px rgba(255, 193, 7, 0.8),
+        0 0 50px rgba(255, 152, 0, 0.6),
+        0 0 100px rgba(255, 193, 7, 0.4);
+}
+
+
+.winning-ticket span {
+    background:
+        linear-gradient(
+            145deg,
+            #fff176,
+            #ffc107,
+            #ff8f00
+        );
+
+    box-shadow:
+        0 0 20px rgba(255, 193, 7, 0.9),
+        0 0 40px rgba(255, 152, 0, 0.6),
+        inset 0 3px 10px rgba(255, 255, 255, 0.6);
+}
+
+
+@keyframes jackpotTicket {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.06);
+    }
+}
+
+
+/* =========================================================
+   FULL PAGE JACKPOT RAIN
+========================================================= */
+
+.jackpot-rain {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 9999;
+}
+
+
+/* Every falling object */
+
+.jackpot-rain span {
+    position: absolute;
+
+    top: -80px;
+
+    left: calc(var(--x) * 1%);
+
+    font-size: var(--size);
+
+    animation:
+        jackpotRain
+        var(--duration)
+        linear
+        var(--delay)
+        forwards;
+
+    user-select: none;
+
+    will-change:
+        transform,
+        opacity;
+
+    filter:
+        drop-shadow(
+            0 0 5px rgba(255, 193, 7, 0.9)
+        )
+        drop-shadow(
+            0 0 12px rgba(255, 152, 0, 0.6)
+        );
+}
+
+
+@keyframes jackpotRain {
+
+    0% {
+        transform:
+            translateY(-80px)
+            translateX(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    20% {
+        transform:
+            translateY(20vh)
+            translateX(-25px)
+            rotate(80deg);
+    }
+
+    40% {
+        transform:
+            translateY(40vh)
+            translateX(30px)
+            rotate(160deg);
+    }
+
+    60% {
+        transform:
+            translateY(60vh)
+            translateX(-25px)
+            rotate(240deg);
+    }
+
+    80% {
+        transform:
+            translateY(80vh)
+            translateX(30px)
+            rotate(300deg);
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            translateX(-20px)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   JACKPOT MESSAGE
+========================================================= */
+
+.jackpot {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: 35px;
+
+    padding: 25px 45px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255, 193, 7, 0.12);
+
+    border: 2px solid rgba(255, 213, 79, 0.7);
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 0 30px rgba(255, 193, 7, 0.25);
+
+    animation:
+        jackpotAppear 0.6s ease-out;
+}
+
+
+@keyframes jackpotAppear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.7);
+    }
+
+    70% {
+        transform:
+            translateY(-5px)
+            scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+.jackpot h3 {
+    margin: 0;
+
+    font-size: 3rem;
+
+    font-weight: 900;
+
+    color: #ffd54f;
+
+    text-shadow:
+        0 0 10px #ffd54f,
+        0 0 25px #ff9800,
+        0 0 50px #ff6f00;
+
+    animation:
+        jackpotText 0.8s ease-in-out infinite alternate;
+}
+
+
+@keyframes jackpotText {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.06);
+    }
+}
+
+
+.jackpot p {
+    margin: 10px 0 15px;
+
+    color: white;
+
+    font-size: 1.1rem;
+
+    font-weight: 600;
+}
+
+
+.winning-number {
+    margin: 10px 0;
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    letter-spacing: 12px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px #ffc107,
+        0 0 25px #ff9800;
+}
+
+
+.jackpot-stars {
+    color: #ffd54f;
+
+    font-size: 1.8rem;
+
+    letter-spacing: 15px;
+
+    animation:
+        starsPulse 1s ease-in-out infinite alternate;
+}
+
+
+@keyframes starsPulse {
+
+    from {
+        opacity: 0.6;
+
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: scale(1.1);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .lotery-game {
+        padding: 30px 15px;
+    }
+
+    .lotery-game h1 {
+        font-size: 3rem;
+
+        letter-spacing: 1px;
+    }
+
+    .lotery-game h2 {
+        font-size: 1rem;
+
+        letter-spacing: 3px;
+
+        margin-bottom: 25px;
+    }
+
+    .ticket {
+        gap: 8px;
+
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+    .ticket span {
+        width: 65px;
+        height: 80px;
+
+        font-size: 2.8rem;
+
+        border-radius: 15px;
+    }
+
+    .lottery-btn {
+        padding: 15px 28px;
+
+        font-size: 0.95rem;
+    }
+
+    .jackpot {
+        width: 95%;
+
+        padding: 20px 25px;
+    }
+
+    .jackpot h3 {
+        font-size: 2.3rem;
+    }
+
+    .winning-number {
+        font-size: 1.5rem;
+
+        letter-spacing: 7px;
+    }
+
+    .jackpot-stars {
+        font-size: 1.4rem;
+
+        letter-spacing: 8px;
+    }
+}
+
+.lotery-game {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.lottery-content {
+    position: relative;
+    z-index: 10;
+}
+
+.jackpot-rain {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.jackpot-rain span {
+    position: absolute;
+    top: -50px;
+
+    left: var(--x);
+
+    font-size: var(--size);
+
+    animation: jackpotFall var(--duration) linear var(--delay) infinite;
+}
+
+@keyframes jackpotFall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.jackpot {
+    position: relative;
+    z-index: 1000;
+    text-align: center;
+    margin-top: 25px;
+    animation: jackpotPop 0.6s ease-out;
+}
+
+.jackpot h3 {
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.winning-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+@keyframes jackpotPop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
